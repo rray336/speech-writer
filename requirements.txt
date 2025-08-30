@@ -1,0 +1,28 @@
+# Core dependencies
+PyMuPDF>=1.23.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# GUI framework
+tkinter-tooltip>=2.2.0
+
+# AI/LLM providers
+openai>=1.0.0
+anthropic>=0.7.0
+google-generativeai>=0.3.0
+
+# Text processing
+nltk>=3.8.0
+spacy>=3.7.0
+
+# PDF processing
+pdfplumber>=0.9.0
+PyPDF2>=3.0.0
+
+# Utilities
+tqdm>=4.66.0
+colorlog>=6.7.0
+
+# Development
+pytest>=7.4.0
+black>=23.0.0

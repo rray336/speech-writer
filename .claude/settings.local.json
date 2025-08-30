@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(npm uninstall:*)",
+      "Read(c:\\Users\\rahul\\OneDrive\\Pictures\\Screenshots/**)",
+      "Read(c:\\Users\\rahul\\OneDrive\\Pictures\\Screenshots/**)",
+      "Read(c:\\Users\\rahul\\OneDrive\\Pictures\\Screenshots/**)",
+      "Bash(dir \"C:\\Users\\rahul\\OneDrive\\IMP_DOCS\\AI\\earnings-analysis\")",
+      "Read(C:\\Users\\rahul\\OneDrive\\IMP_DOCS\\AI\\earnings-analysis/**)",
+      "Read(C:\\Users\\rahul\\OneDrive\\IMP_DOCS\\AI\\earnings-analysis/**)",
+      "Bash(dir:*)",
+      "Bash(python:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
