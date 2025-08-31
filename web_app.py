@@ -425,13 +425,13 @@ def reset_app():
     flash('Application reset successfully')
     return redirect(url_for('index'))
 
+# Initialize processors when module is loaded (works with both direct run and gunicorn)
+processors_initialized = initialize_processors()
+
+if not processors_initialized:
+    print("WARNING: Running with limited functionality due to missing API keys")
+
 if __name__ == '__main__':
-    # Initialize processors
-    processors_initialized = initialize_processors()
-    
-    if not processors_initialized:
-        print("WARNING: Running with limited functionality due to missing API keys")
-    
     # Get port from environment variable (Railway sets this)
     port = int(os.environ.get('PORT', 5000))
     
