@@ -62,6 +62,12 @@ def initialize_processors():
     global llm_manager, pdf_processor
     
     try:
+        # Debug: Print environment variables
+        print("DEBUG: Checking environment variables:")
+        for key in ['OPENAI_API_KEY', 'CLAUDE_API_KEY', 'GEMINI_API_KEY', 'OPENROUTER_API_KEY']:
+            val = os.getenv(key)
+            print(f"  {key}: {'Set' if val else 'Not set'}")
+        
         # Initialize LLM manager first
         llm_manager = LLMManager()
         available_providers = llm_manager.get_available_providers()
@@ -84,6 +90,8 @@ def initialize_processors():
             
     except Exception as e:
         print(f"ERROR: Failed to initialize processors: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 def allowed_file(filename):
