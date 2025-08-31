@@ -14,7 +14,8 @@
       "Read(C:\\Users\\rahul\\OneDrive\\IMP_DOCS\\AI\\earnings-analysis/**)",
       "Read(C:\\Users\\rahul\\OneDrive\\IMP_DOCS\\AI\\earnings-analysis/**)",
       "Bash(dir:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

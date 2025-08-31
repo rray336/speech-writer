@@ -23,6 +23,10 @@ PyPDF2>=3.0.0
 tqdm>=4.66.0
 colorlog>=6.7.0
 
+# Web framework
+Flask>=2.3.0
+gunicorn>=21.0.0
+
 # Development
 pytest>=7.4.0
 black>=23.0.0

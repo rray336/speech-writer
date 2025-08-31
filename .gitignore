@@ -53,6 +53,7 @@ Thumbs.db
 logs/
 *.log
 temp/
+uploads/
 
 # Environment variables and sensitive data
 .env
