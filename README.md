@@ -1,6 +1,6 @@
 # Speech Writer
 
-AI-powered speech template and speech generator built with Python and Tkinter. Extracts speaker-specific prepared remarks from PDF transcripts and generates personalized templates and speeches with sophisticated popup-based interface.
+AI-powered speech template and speech generator with dual interface options: a desktop Tkinter GUI and a modern Flask web application. Extracts speaker-specific prepared remarks from PDF transcripts and generates personalized templates and speeches.
 
 ## Features
 
@@ -10,12 +10,17 @@ AI-powered speech template and speech generator built with Python and Tkinter. E
 - **Custom Speech Generation**: Converts key messages into full speeches using prepared remarks as style context
 - **Multi-Provider AI Support**: OpenAI, Claude, Gemini, and OpenRouter integration
 
-### User Interface
-- **Professional Desktop GUI**: Clean Tkinter interface with streamlined 4-step workflow
-- **Popup-Based Results**: Dedicated windows for templates and speeches with tabbed interface
-- **Real-time Processing**: Threaded operations prevent GUI freezing
-- **Comprehensive Logging**: Detailed progress tracking and LLM prompt visibility
-- **Export Functionality**: Save prepared remarks, templates, and speeches from popup windows
+### User Interface Options
+- **Flask Web Application**: Modern web-based interface with responsive design and real-time status updates
+  - Clean 5-step workflow with progress tracking
+  - AI model selection interface
+  - Real-time processing status with progress bars
+  - Export functionality for all generated content
+  - Mobile-responsive design for any device
+- **Desktop GUI (Legacy)**: Professional Tkinter interface with popup-based results
+  - Streamlined 4-step workflow
+  - Dedicated windows for templates and speeches with tabbed interface
+  - Comprehensive logging with LLM prompt visibility
 
 ## Quick Start
 
@@ -39,13 +44,21 @@ AI-powered speech template and speech generator built with Python and Tkinter. E
    ```
 
 4. **Run the application**
+   
+   **Web Application (Recommended):**
+   ```bash
+   python web_app.py
+   ```
+   Then open your browser to `http://localhost:5000`
+   
+   **Desktop Application:**
    ```bash
    python main.py
    ```
 
 ### System Requirements
 - Python 3.8 or higher
-- Windows/macOS/Linux with GUI support
+- Web browser (for web application) or GUI support (for desktop application)
 - At least one AI provider API key
 
 ## Environment Variables
@@ -66,44 +79,60 @@ OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
 
 ## Usage Workflow
 
-### Step 1: Upload PDF Transcript
-- Click "Browse" to select a PDF file containing speaker transcripts
-- Supports transcripts with multiple speakers, Q&A sessions, prepared remarks
-- Application validates file format and readability
+### Web Application Interface
 
-### Step 2: Enter speaker name (e.g., David)
+#### Step 1: Upload PDF Transcript
+- Click "Choose File" to select a PDF file containing speaker transcripts
+- Supports transcripts with multiple speakers, Q&A sessions, prepared remarks
+- Application validates file format and readability with real-time feedback
+
+#### Step 2: Select AI Model
+- Choose your preferred AI provider from the dropdown menu
+- Available providers based on configured API keys
+- Switch providers anytime without restarting the application
+
+#### Step 3: Enter Speaker Name
 - Enter the exact name of the speaker you want to extract content for
 - Name matching is case-insensitive and flexible (supports variations)
 
-### Step 3: Generate Template
+#### Step 4: Generate Template
 - Click "Generate Template" to extract prepared remarks and create speech template
-- **Two-Tab Popup Window** displays:
-  - **Tab 1**: LLM-extracted prepared remarks from the PDF
-  - **Tab 2**: Generated speech template with structured bullet points
-- Template summarizes prepared remarks in presentation-ready format
+- Real-time progress tracking with status updates
+- Results display with prepared remarks and generated template
+- Export options for template and prepared remarks
 
-### Step 4: Generate Custom Speech
+#### Step 5: Generate Custom Speech
 - Enter your key messages in the text area
 - Click "Generate Custom Speech" for full speech conversion
-- **Speech Popup Window**: Shows complete speech that mimics the speaker's style using prepared remarks as context
+- Complete speech that mimics the speaker's style using prepared remarks as context
+- Export options for speech and LLM prompt
 
-### Export Results
-- Template window: Export prepared remarks or template separately
-- Speech window: Export complete speech
-- Files saved with speaker-specific naming
+### Desktop Application Interface (Legacy)
+- **Two-Tab Popup Windows**: Dedicated windows showing prepared remarks and generated content
+- **Streamlined 4-step workflow**: Upload → Speaker Name → Template → Custom Speech
+- **Comprehensive Logging**: Detailed progress tracking with LLM prompt visibility
+
+### Export Functionality
+- **Web App**: Context-sensitive export buttons (Template/Speech/Remarks/Prompt)
+- **Desktop App**: Separate export options from popup windows
+- Files saved with speaker-specific naming convention
 
 ## Technical Architecture
 
 ### Project Structure
 ```
 speech-writer/
-├── main.py                 # Main GUI application (750+ lines)
+├── web_app.py              # Flask web application (primary interface)
+├── main.py                 # Tkinter desktop application (legacy)
+├── templates/
+│   └── index.html         # Web application HTML template
 ├── core/                   # Core functionality modules
 │   ├── pdf_processor.py    # PDF text extraction & speaker identification
 │   └── llm_providers.py    # Multi-provider AI integrations
 ├── utils/                  # Utility modules
 │   ├── validators.py       # Input validation functions
 │   └── logger.py          # Logging configuration
+├── uploads/               # Temporary PDF storage directory
 ├── test_app.py            # Comprehensive test suite
 ├── test_pdf_replacement.py # PDF replacement workflow tests
 ├── requirements.txt        # Python dependencies
@@ -124,11 +153,16 @@ speech-writer/
 - **Error Handling**: Comprehensive error reporting with detailed logging
 - **Token Management**: Optimized prompts for template and speech generation
 
-#### GUI Framework
-- **Tkinter-based Interface**: Professional desktop application with streamlined workflow
-- **Threaded Processing**: Non-blocking operations for better UX
-- **Tabbed Popup Windows**: Dedicated windows showing prepared remarks and generated content
-- **Progress Tracking**: Real-time status updates and comprehensive logging with LLM prompt visibility
+#### User Interface Frameworks
+- **Flask Web Application**: Modern web-based interface with responsive design
+  - Real-time status updates via AJAX polling
+  - Responsive design for mobile and desktop
+  - Context-sensitive export functionality
+  - Threaded background processing
+- **Tkinter Desktop Application (Legacy)**: Professional desktop interface
+  - Popup-based results with tabbed interface
+  - Non-blocking threaded operations
+  - Comprehensive logging with LLM prompt visibility
 
 ## AI Provider Support
 
@@ -140,8 +174,8 @@ speech-writer/
 
 ### Provider Features
 - **Automatic Detection**: Based on configured API keys
-- **Hot-swapping**: Change providers without restarting
-- **Fallback Support**: Handles provider-specific errors
+- **Hot-swapping**: Change providers without restarting (web app) or via interface selection
+- **Fallback Support**: Handles provider-specific errors gracefully
 - **Custom Endpoints**: Support for OpenAI-compatible APIs
 
 ## Testing
@@ -198,9 +232,9 @@ Tests validate:
    - Review logs for detailed error information
 
 ### Debug Information
-- Application logs saved to `logs/speech_writer.log`
-- Popup windows show detailed error messages
-- Main interface displays real-time processing status
+- **Web Application**: Real-time status updates and error messages in browser interface
+- **Desktop Application**: Application logs saved to `logs/speech_writer.log` with popup error messages
+- Console output provides detailed error information for both interfaces
 - Comprehensive test suites available: `python test_app.py` and `python test_pdf_replacement.py`
 
 ## Security Considerations
@@ -210,12 +244,39 @@ Tests validate:
 - **No Data Persistence**: No sensitive information stored
 - **Secure Connections**: HTTPS for all AI provider communications
 
+## Deployment Options
+
+### Local Development
+```bash
+python web_app.py
+```
+Access at `http://localhost:5000`
+
+### Production Deployment
+The Flask application supports production deployment with WSGI servers:
+
+```bash
+# Using Gunicorn (recommended)
+pip install gunicorn
+gunicorn -w 4 -b 0.0.0.0:5000 web_app:app
+
+# Environment variables for production
+export FLASK_SECRET_KEY=your-production-secret-key
+export PORT=5000  # Railway, Heroku, etc.
+```
+
+### Cloud Platform Deployment
+- **Railway**: Automatic deployment with environment variable support
+- **Heroku**: Compatible with Heroku's Python buildpack
+- **Docker**: Containerization-ready Flask application
+
 ## Performance Optimization
 
-- **Threaded Operations**: Prevent GUI blocking during processing
-- **Token Management**: Optimized prompts for efficiency
-- **Memory Management**: Proper cleanup of large PDF content
-- **Error Recovery**: Graceful handling of provider failures
+- **Threaded Operations**: Background processing prevents interface blocking
+- **Real-time Updates**: AJAX polling for status updates in web interface
+- **Token Management**: Optimized prompts for efficiency across all providers
+- **Memory Management**: Proper cleanup of large PDF content and temporary files
+- **Error Recovery**: Graceful handling of provider failures with detailed feedback
 
 ## Contributing
 
@@ -234,4 +295,5 @@ MIT License - see LICENSE file for details
 For issues, feature requests, and documentation:
 - GitHub Issues: Report bugs and request features
 - Test Suite: Verify functionality with `python test_app.py`
-- Logs: Check `logs/speech_writer.log` for debugging
+- **Web App**: Browser developer tools for client-side debugging
+- **Desktop App**: Check `logs/speech_writer.log` for debugging
